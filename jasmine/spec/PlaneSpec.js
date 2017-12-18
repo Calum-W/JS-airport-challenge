@@ -11,5 +11,10 @@ describe("Plane", function() {
       plane.takeOff();
       expect(function() {plane.takeOff()}).toThrow(new Error('Plane is flying'));
     });
+
+    it("should set the plane's status to flying", function() {
+      plane.takeOff();
+      expect(plane.isFlying).toBe(true)
+    })
   });
 });
