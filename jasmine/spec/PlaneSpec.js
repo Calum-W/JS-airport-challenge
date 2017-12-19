@@ -33,16 +33,18 @@ describe("Airport", function() {
 
   var plane;
   var plane2;
+  var spyPlane
   var airport;
 
   beforeEach(function() {
     plane = new Plane();
     plane2 = new Plane();
     airport = new Airport();
+    spyPlane = jasmine.createSpyObj('spyPlane', ['takeOff', 'land'])
   });
 
   it("should initialise as empty", function() {
-    expect(airport.hangar.length).toEqual(0)
+    expect(airport._hangar.length).toEqual(0)
   });
 
   it("should have a variable capacity", function() {
@@ -53,7 +55,7 @@ describe("Airport", function() {
   describe("land", function() {
     it("should add a plane to the hangar", function() {
       airport.land(plane);
-      expect(airport.hangar[0]).toEqual(plane);
+      expect(airport._hangar).toContain(plane);
     });
 
     it("should throw an error if the airport is already at capacity", function() {
@@ -62,26 +64,37 @@ describe("Airport", function() {
       }
       expect(function() {airport.land(plane)}).toThrow(new Error('Airport full'));
     });
+
+    it("should tell the plane to land", function() {
+      airport.land(spyPlane);
+      expect(spyPlane.land).toHaveBeenCalled();
+    })
   });
 
   describe("take off", function() {
     it("should remove a plane from the hangar", function() {
       airport.land(plane);
       airport.takeOff(plane);
-      expect(airport.hangar.length).toEqual(0);
+      expect(airport._hangar.length).toEqual(0);
     });
 
     it("should only remove the correct plane from the hangar", function() {
       airport.land(plane);
       airport.land(plane2);
       airport.takeOff(plane);
-      expect(airport.hangar[0]).toEqual(plane2);
+      expect(airport._hangar[0]).toEqual(plane2);
     });
 
     it("should throw an error if the plane is not docked at that airport", function() {
       plane.isFlying = false
       expect(function() {airport.takeOff(plane)}).toThrow(new Error('Plane not docked at this airport'));
     });
+
+    it("should tell the plane to take off", function() {
+      airport.land(spyPlane);
+      airport.takeOff(spyPlane);
+      expect(spyPlane.takeOff).toHaveBeenCalled();
+    })
   });
 });
 

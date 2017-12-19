@@ -19,23 +19,23 @@ var Plane = function() {
 };
 
 var Airport = function(capacity) {
-  this.hangar = [];
+  this._hangar = [];
   if (capacity === undefined) {
         this.CAPACITY = 20;
     } else {
       this.CAPACITY = capacity
     }
   this.land = function(plane) {
-    if (this.hangar.length >= this.CAPACITY) {
+    if (this._hangar.length >= this.CAPACITY) {
         throw new Error("Airport full");
     } else {
     plane.land();
-    this.hangar.push(plane);
+    this._hangar.push(plane);
   };
   };
   this.takeOff = function(plane) {
     plane.takeOff();
-    removePlane(this.hangar, plane);
+    removePlane(this._hangar, plane);
   };
 };
 
