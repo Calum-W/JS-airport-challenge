@@ -1,5 +1,5 @@
 var Plane = function() {
-  this.isFlying = false
+  this.isFlying = true;
   this.takeOff = function() {
     if (this.isFlying == true) {
       throw new Error("Plane is flying");
@@ -24,5 +24,9 @@ var Airport = function() {
   this.land = function(plane) {
     plane.land();
     this.hangar << plane;
-  }
-}
+  };
+  this.takeOff = function(plane) {
+    plane.takeOff();
+    this.hangar.pop(plane);
+  };
+};
