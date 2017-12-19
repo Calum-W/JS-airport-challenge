@@ -39,6 +39,13 @@ describe("Airport", function() {
     airport = new Airport();
   });
 
+  describe("land", function() {
+    it("should add a plane to the hangar", function() {
+      airport.land(plane);
+      expect(airport.hangar[0]).toEqual();
+    });
+  });
+
   describe("take off", function() {
     it("should remove a plane from the hangar", function() {
       airport.land(plane);
