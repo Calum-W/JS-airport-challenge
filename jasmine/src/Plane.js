@@ -55,5 +55,5 @@ function removePlane(array, element) {
 }
 
 Airport.prototype.isStormy = function() {
-  return false
+  return Math.random() <= 0.2;
 }

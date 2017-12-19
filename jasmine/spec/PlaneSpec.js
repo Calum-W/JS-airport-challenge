@@ -41,6 +41,7 @@ describe("Airport", function() {
     plane2 = new Plane();
     airport = new Airport();
     spyPlane = jasmine.createSpyObj('spyPlane', ['takeOff', 'land'])
+    spyOn(airport, 'isStormy').and.returnValue(false);
   });
 
   it("should initialise as empty", function() {
@@ -69,12 +70,6 @@ describe("Airport", function() {
       airport.land(spyPlane);
       expect(spyPlane.land).toHaveBeenCalled();
     })
-
-    it("blocks land when the weather is stormy", function() {
-      spyOn(airport, 'isStormy').and.returnValue(true);
-      expect(function(){ airport.land(plane) }).toThrowError('Stormy')
-      expect(airport._hangar.length).toEqual(0);
-    });
   });
 
   describe("take off", function() {
@@ -100,16 +95,33 @@ describe("Airport", function() {
       airport.land(spyPlane);
       airport.takeOff(spyPlane);
       expect(spyPlane.takeOff).toHaveBeenCalled();
-    })
-
-    it("blocks take off when the weather is stormy", function() {
-      airport.land(plane)
-      spyOn(airport, 'isStormy').and.returnValue(true);
-      expect(function(){ airport.takeOff(plane) }).toThrowError('Stormy')
-      expect(airport._hangar).toContain(plane);
     });
   });
 });
+
+describe("stormy weather", function() {
+
+  var plane;
+  var airport;
+
+  beforeEach(function() {
+    plane = new Plane();
+    airport = new Airport();
+  });
+
+  it("blocks take off when the weather is stormy", function() {
+    airport.land(plane)
+    spyOn(airport, 'isStormy').and.returnValue(true);
+    expect(function(){ airport.takeOff(plane) }).toThrowError('Stormy')
+    expect(airport._hangar).toContain(plane);
+  });
+
+  it("blocks land when the weather is stormy", function() {
+    spyOn(airport, 'isStormy').and.returnValue(true);
+    expect(function(){ airport.land(plane) }).toThrowError('Stormy')
+    expect(airport._hangar.length).toEqual(0);
+  });
+})
 
 // describe("weather", function() {
 //   it("should sometimes return stormy", function() {
