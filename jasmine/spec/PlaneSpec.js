@@ -45,6 +45,11 @@ describe("Airport", function() {
     expect(airport.hangar.length).toEqual(0)
   })
 
+  it("should have a variable capacity", function() {
+    tenAirport = new Airport(10);
+    expect(tenAirport.CAPACITY).toEqual(10);
+  })
+
   describe("land", function() {
     it("should add a plane to the hangar", function() {
       airport.land(plane);

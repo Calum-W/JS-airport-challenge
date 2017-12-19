@@ -18,9 +18,13 @@ var Plane = function() {
    };
 };
 
-var Airport = function() {
-  this.hangar = []
-  this.CAPACITY = 20;
+var Airport = function(capacity) {
+  this.hangar = [];
+  if (capacity === undefined) {
+        this.CAPACITY = 20;
+    } else {
+      this.CAPACITY = capacity;
+    }
   this.land = function(plane) {
     if (this.hangar.length >= this.CAPACITY) {
         throw new Error("Airport full");
