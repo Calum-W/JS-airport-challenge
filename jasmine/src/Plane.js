@@ -26,14 +26,19 @@ var Airport = function(capacity) {
       this.CAPACITY = capacity
     }
   this.land = function(plane) {
-    if (this._hangar.length >= this.CAPACITY) {
+    if (this.isStormy()) {
+      throw new Error("Stormy");
+    }
+    else if (this._hangar.length >= this.CAPACITY) {
         throw new Error("Airport full");
-    } else {
+    }
     plane.land();
     this._hangar.push(plane);
   };
-  };
   this.takeOff = function(plane) {
+    if (this.isStormy()) {
+      throw new Error("Stormy");
+    }
     plane.takeOff();
     removePlane(this._hangar, plane);
   };
@@ -49,6 +54,6 @@ function removePlane(array, element) {
     }
 }
 
-function isStormy() {
-  Math.random() <= 0.2
+Airport.prototype.isStormy = function() {
+  return false
 }
