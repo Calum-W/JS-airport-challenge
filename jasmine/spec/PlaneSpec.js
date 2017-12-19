@@ -24,8 +24,8 @@ describe("Plane", function() {
     it("should set the plane's status to not be flying", function() {
       plane.land(airport)
       expect(plane.isFlying).toBe(false)
-    })
-  })
+    });
+  });
 });
 
 
@@ -43,7 +43,7 @@ describe("Airport", function() {
 
   it("should initialise as empty", function() {
     expect(airport.hangar.length).toEqual(0)
-  })
+  });
 
   it("should have a variable capacity", function() {
     tenAirport = new Airport(10);
@@ -81,6 +81,12 @@ describe("Airport", function() {
     it("should throw an error if the plane is not docked at that airport", function() {
       plane.isFlying = false
       expect(function() {airport.takeOff(plane)}).toThrow(new Error('Plane not docked at this airport'));
-    })
+    });
   });
 });
+
+// describe("weather", function() {
+//   it("should sometimes return stormy", function() {
+//     expect(isStormy()).toEqual(true);
+//   })
+// })

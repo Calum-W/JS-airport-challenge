@@ -23,7 +23,7 @@ var Airport = function(capacity) {
   if (capacity === undefined) {
         this.CAPACITY = 20;
     } else {
-      this.CAPACITY = capacity;
+      this.CAPACITY = capacity
     }
   this.land = function(plane) {
     if (this.hangar.length >= this.CAPACITY) {
@@ -47,4 +47,8 @@ function removePlane(array, element) {
     } else {
       throw new Error("Plane not docked at this airport");
     }
+}
+
+function isStormy() {
+  Math.random() <= 0.2
 }
