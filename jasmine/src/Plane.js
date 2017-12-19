@@ -18,15 +18,29 @@ var Plane = function() {
    };
 };
 
-
 var Airport = function() {
   this.hangar = []
+  this.CAPACITY = 20;
   this.land = function(plane) {
+    if (this.hangar.length >= this.CAPACITY) {
+        throw new Error("Airport full");
+    } else {
     plane.land();
-    this.hangar << plane;
+    this.hangar.push(plane);
+  };
   };
   this.takeOff = function(plane) {
     plane.takeOff();
-    this.hangar.pop(plane);
+    removePlane(this.hangar, plane);
   };
 };
+
+function removePlane(array, element) {
+    const index = array.indexOf(element);
+
+    if (index !== -1) {
+        array.splice(index, 1);
+    } else {
+      throw new Error("Plane not docked at this airport");
+    }
+}
