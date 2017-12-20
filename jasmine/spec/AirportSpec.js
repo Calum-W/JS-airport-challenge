@@ -6,10 +6,11 @@ describe("Airport", function() {
 
   beforeEach(function() {
     airport = new Airport();
-    clearWeather = new Weather();
+    clearWeather = jasmine.createSpyObj('stormyWeather', {
+        'isStormy': false
+      });
     spyPlane = jasmine.createSpyObj('spyPlane', ['takeOff', 'land']);
     spyPlane2 = jasmine.createSpyObj('spyPlane2', ['takeOff', 'land']);
-    spyOn(clearWeather, 'isStormy').and.returnValue(false);
   });
 
   it("should initialise as empty", function() {
@@ -76,8 +77,9 @@ describe("stormy weather", function() {
   beforeEach(function() {
     spyPlane = jasmine.createSpyObj('spyPlane', ['takeOff', 'land']);
     airport = new Airport();
-    stormyWeather = new Weather
-    spyOn(stormyWeather, 'isStormy').and.returnValue(true);
+    stormyWeather = jasmine.createSpyObj('stormyWeather', {
+      'isStormy': true
+    });
   });
 
   it("blocks take off when the weather is stormy", function() {
