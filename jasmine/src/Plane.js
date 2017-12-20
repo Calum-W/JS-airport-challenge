@@ -1,5 +1,7 @@
 var Plane = function() {
+
   this.isFlying = true;
+
   this.takeOff = function() {
     if (this.isFlying == true) {
       throw new Error("Plane is flying");
@@ -8,6 +10,7 @@ var Plane = function() {
         return "lookin' breezy";
       }
    };
+
    this.land = function() {
      if (this.isFlying == false) {
        throw new Error("Plane is grounded");

@@ -1,12 +1,15 @@
 var Airport = function(capacity) {
+
   this._hangar = [];
+
   if (capacity === undefined) {
         this.CAPACITY = 20;
     } else {
       this.CAPACITY = capacity
     }
-  this.land = function(plane) {
-    if (this.isStormy()) {
+
+  this.land = function(plane, weather = new Weather) {
+    if (weather.isStormy()) {
       throw new Error("Stormy");
     }
     else if (this._hangar.length >= this.CAPACITY) {
@@ -15,8 +18,9 @@ var Airport = function(capacity) {
     plane.land();
     this._hangar.push(plane);
   };
-  this.takeOff = function(plane) {
-    if (this.isStormy()) {
+
+  this.takeOff = function(plane, weather = new Weather) {
+    if (weather.isStormy()) {
       throw new Error("Stormy");
     }
     plane.takeOff();
@@ -32,8 +36,4 @@ function removePlane(array, element) {
     } else {
       throw new Error("Plane not docked at this airport");
     }
-}
-
-Airport.prototype.isStormy = function() {
-  return Math.random() <= 0.2;
 }
