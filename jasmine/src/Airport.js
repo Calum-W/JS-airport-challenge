@@ -1,4 +1,4 @@
-var Airport = function(capacity) {
+var Airport = function (capacity) {
 
   this._hangar = [];
 

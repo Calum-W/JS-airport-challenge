@@ -2,7 +2,8 @@ describe("Airport", function() {
 
   var spyPlane
   var airport;
-  var clearWeather;
+  var clearWeather
+  var spyPlane2
 
   beforeEach(function() {
     airport = new Airport();
@@ -50,7 +51,8 @@ describe("Airport", function() {
       airport.land(spyPlane, clearWeather);
       airport.land(spyPlane2, clearWeather);
       airport.takeOff(spyPlane, clearWeather);
-      expect(airport._hangar[0]).toEqual(spyPlane2);
+      expect(spyPlane.takeOff).toHaveBeenCalled();
+      expect(spyPlane2.takeOff).not.toHaveBeenCalled();
     });
 
     it("should throw an error if the plane is not docked at that airport", function() {
@@ -85,10 +87,11 @@ describe("stormy weather", function() {
     spyPlane.isFlying = false;
     expect(function(){ airport.takeOff(spyPlane, stormyWeather) }).toThrowError('Stormy')
     expect(airport._hangar).toContain(spyPlane);
+    expect(spyPlane.takeOff).not.toHaveBeenCalled();
   });
 
   it("blocks land when the weather is stormy", function() {
     expect(function(){ airport.land(spyPlane, stormyWeather) }).toThrowError('Stormy')
-    expect(airport._hangar.length).toEqual(0);
+    expect(spyPlane.land).not.toHaveBeenCalled();
   });
 });
