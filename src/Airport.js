@@ -23,8 +23,8 @@ var Airport = function (capacity) {
     if (weather.isStormy()) {
       throw new Error("Stormy");
     }
-    plane.takeOff();
     removePlane(this._hangar, plane);
+    plane.takeOff();
   };
 };
 

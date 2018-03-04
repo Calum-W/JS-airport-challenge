@@ -60,6 +60,12 @@ describe("Airport", function() {
       expect(function() {airport.takeOff(spyPlane, clearWeather)}).toThrow(new Error('Plane not docked at this airport'));
     });
 
+    it("shouldn'tcall take off on plane if not docked at that airport", function() {
+      spyPlane.isFlying = false
+      expect(function() {airport.takeOff(spyPlane, clearWeather)}).toThrow(new Error('Plane not docked at this airport'));
+      expect(spyPlane.takeOff).not.toHaveBeenCalled();
+    });
+
     it("should tell the plane to take off", function() {
       airport.land(spyPlane, clearWeather);
       airport.takeOff(spyPlane, clearWeather);
